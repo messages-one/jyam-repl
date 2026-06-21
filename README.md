@@ -38,41 +38,14 @@ JYam is a zero-dependency, cloud-native toolkit for working with JSON, YAML, Mes
 
 ## Installation & Setup
 
-### Building from Source
-
-```bash
-# Compile all Java files
-javac org/melsoft/jyam/*.java JYamRepl.java
-
 # Run the REPL
-java JYamRepl
+on Windows you can download jyam.exe
+ if your organization firewall blocks executables then
+      choose the version which best matches your jdk distribution
+      the jar file follows the same pattern:   jyam-java<jdk-version>-1.0.0.jar
 
-# Run with a file and query (non-interactive mode)
-java JYamRepl config.json -e ".contexts.source.region"
-
-# Run with quiet output (for scripting)
-java JYamRepl data.json -e ".users[0].name" -q
-```
-
-### Command Line Options
-
-```bash
-java JYamRepl [file] [options]
-
-Options:
-  -e, --query <path>   Execute a query on the file and exit
-  -q, --quiet          Suppress output formatting (for piping)
-```
-
----
-
-## REPL Mode
-
-### Starting the REPL
-
-```bash
-java JYamRepl
-```
+    java -jar <path-to-jar>  
+    ex:  java -jar jyam-java26-1.0.0.jar
 
 ### Main Menu Options
 
@@ -103,25 +76,24 @@ jyam (filename | MODE) [CLOUD] >
 
 JYam supports **two query syntaxes**:
 
-1. **Dot Notation** (JYam native) - Simple and fast
-   2. **JSONPath** (Standard) - Full JSONPath support
+1.  Dot Notation  (JYam native)    - Simple and fast
+2.  JSONPath      (Standard)          - Full JSONPath support
 
 ### Dot Notation
 
 #### Basic Queries
 
 ```bash
-# Query top-level property
-.contexts
+jyam>  .contexts
 
 # Nested properties
-.contexts.source.region
+jyam>  .contexts.source.region
 
 # Array access
-.contexts.source.zones[0]
+jyam>  .contexts.source.zones[0]
 
 # Multiple array elements
-.contexts.source.zones[0], .contexts.source.zones[1]
+jyam> .contexts.source.zones[0], .contexts.source.zones[1]
 ```
 
 #### Keys with Special Characters
@@ -233,13 +205,13 @@ path "$.contexts[?(@.region)]"
 
 ```bash
 # Load JSON file
-load data.json
+jyam> load data.json
 
 # Load YAML file
-load config.yaml
+jyam> load config.yaml
 
 # Large file (>50MB) - automatically uses streaming mode
-load large-file.json
+jyam> load large-file.json
 ```
 
 **Supported Formats:**
@@ -252,19 +224,11 @@ load large-file.json
 
 ```bash
 # Save to current file
-save
+jyam> save
 
-# Save to new file (format detected from extension)
-save output.json
-save output.yaml
-
-# Force YAML output
-yaml
-save output.yaml
-
-# Force JSON output
-json
-save output.json
+# convert from json to yaml
+jyam>  load config.yaml
+jyam>  save config.json
 ```
 
 ### Auto-detection
